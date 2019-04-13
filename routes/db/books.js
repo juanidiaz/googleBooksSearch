@@ -6,11 +6,11 @@ router.route("/")
   .get(books.findAll)
   .post(books.create);
 
-// Matches with "/db/books/:query"
+// Matches with "/db/books/:id"
 router
-  .route("/:query")
-  // .get(booksController.findByQuery)
-  // .put(booksController.update)
-  // .delete(booksController.remove);
+  .route("/:id")
+  .get(books.findById)
+  .put(books.update)
+  .delete(books.remove);
 
 module.exports = router;
