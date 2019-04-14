@@ -5,14 +5,14 @@ const bookSchema = new Schema({
   googleId: { type: String, required: true },
   title: { type: String, required: true },
   subTitle: { type: String },
-  author: { type: String },
+  author: { type: Array },
   description: { type: String, required: true },
-  publisher: { type: String, required: true },
-  publishedDate: { type: Date, required: true },
+  publisher: { type: String },
+  publishedDate: { type: Date },
   image: { type: String, required: true },
   link: { type: String, required: true },
   pageCount: { type: Number },
-  language: { type: String },
+  language: { type: String }
 });
 
 const Book = mongoose.model("Book", bookSchema);

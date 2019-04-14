@@ -27,12 +27,12 @@ export default class Example extends React.Component {
     return (
       <div>
         <Navbar color="info" dark expand="md">
-          <NavbarBrand href="/search">Seach Google Books</NavbarBrand>
+          <NavbarBrand href="/">Seach Google Books</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
             <NavItem>
-                <NavLink href="/search">Seach books</NavLink>
+                <NavLink href="/">Seach books</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/saved">Saved Books</NavLink>

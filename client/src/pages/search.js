@@ -1,36 +1,13 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, FormBtn } from "../components/Form";
+import MediaCard from "../components/MediaCard"
 
 class Books extends Component {
   state = {
     books: [],
-    title: "",
-    author: "",
-    synopsis: ""
-  };
-
-  componentDidMount() {
-    this.loadBooks();
-  }
-
-  loadBooks = () => {
-    API.getBooks()
-      .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-      )
-      .catch(err => console.log(err));
-  };
-
-  deleteBook = id => {
-    API.deleteBook(id)
-      .then(res => this.loadBooks())
-      .catch(err => console.log(err));
+    query: ""
   };
 
   handleInputChange = event => {
@@ -42,53 +19,93 @@ class Books extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
+    if (this.state.query != '') {
+      // console.log(`Searching for ${this.state.query}`)
+      API.searchBooks(this.state.query)
+        .then(res => {
+          this.setState({ books: res.data.items });
+          // console.log(res.data.items)
+        })
         .catch(err => console.log(err));
     }
   };
 
+  handleSaveBook = info => {
+
+    var newBook = {
+      googleId: info.googleId,
+      title: info.title,
+      author: info.author,
+      description: info.description,
+      image: info.image,
+      link: info.link,
+      pageCount: info.pageCount
+    }
+
+    console.log(newBook);
+
+    API.saveBook(newBook)
+      .then( console.log("SAVED"))
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
+
       <Container fluid>
         <Row>
           <Col size="md-10">
             {/* <Jumbotron> */}
-              <h1>Search for books</h1>
-            {/* </Jumbotron> */}
+            <br />
+            <h3>Search for books by entering it's title, author or any keyword</h3>
             <form>
               <Input
-                value={this.state.title}
+                value={this.state.query}
                 onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
+                name="query"
+                placeholder="Search by Title, Author, Description, etc"
               />
               <FormBtn
-                disabled={!(this.state.author && this.state.title)}
+                disabled={!(this.state.query)}
                 onClick={this.handleFormSubmit}
               >
-                Submit Book
+                SEARCH BOOKS
               </FormBtn>
             </form>
+            {/* </Jumbotron> */}
           </Col>
         </Row>
+        <Row>
+          <Col size="md-10">
+            <hr />
+            <h1>Search result</h1>
+            {this.state.books.length ? (
+              // <List><
+              <div className="container foundBooks">
+                <div className="row thisRow">
+                  {this.state.books.map(book => (
+                    <div className="col-md-4" key={book.id}>
+                      <MediaCard
+                        googleId={book.id}
+                        title={book.volumeInfo.title}
+                        description={book.volumeInfo.description}
+                        author={book.volumeInfo.authors}
+                        pageCount={book.volumeInfo.pageCount}
+                        link={book.volumeInfo.infoLink}
+                        image={book.volumeInfo.imageLinks.thumbnail}
+                        handleSaveBook={this.handleSaveBook}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              // </List>
+            ) : (
+                <h3>No Results to Display</h3>
+              )}
+          </Col>
+        </Row>
+
       </Container>
     );
   }
