@@ -19,7 +19,7 @@ class Books extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.query != '') {
+    if (this.state.query !== '') {
       // console.log(`Searching for ${this.state.query}`)
       API.searchBooks(this.state.query)
         .then(res => {
@@ -45,7 +45,7 @@ class Books extends Component {
     console.log(newBook);
 
     API.saveBook(newBook)
-      .then( console.log("SAVED"))
+      .then(console.log("SAVED"))
       .catch(err => console.log(err));
   };
 
@@ -55,9 +55,9 @@ class Books extends Component {
       <Container fluid>
         <Row>
           <Col size="md-10">
-            {/* <Jumbotron> */}
             <br />
-            <h3>Search for books by entering it's title, author or any keyword</h3>
+            <p>Use this site to search for books, then save the results and decide later if you want to buy them.</p>
+            <p>To start just enter a title, author or any keyword.</p>
             <form>
               <Input
                 value={this.state.query}
@@ -72,16 +72,14 @@ class Books extends Component {
                 SEARCH BOOKS
               </FormBtn>
             </form>
-            {/* </Jumbotron> */}
           </Col>
         </Row>
         <Row>
           <Col size="md-10">
             <hr />
-            <h1>Search result</h1>
             {this.state.books.length ? (
-              // <List><
               <div className="container foundBooks">
+                <h1>Search result</h1>
                 <div className="row thisRow">
                   {this.state.books.map(book => (
                     <div className="col-md-4" key={book.id}>
@@ -99,9 +97,8 @@ class Books extends Component {
                   ))}
                 </div>
               </div>
-              // </List>
-            ) : (
-                <h3>No Results to Display</h3>
+            ):(
+                <small>Results will be displayed here</small>
               )}
           </Col>
         </Row>

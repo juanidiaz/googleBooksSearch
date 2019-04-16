@@ -13,7 +13,7 @@ const BookCard = (props) => {
         <CardBody>
           <CardTitle>Author: {props.author}</CardTitle>
           <CardText>
-            <a href={props.link} target='-none'><img src={props.image} /></a>
+            <a href={props.link} target='-none'><img src={props.image} alt='Book thumbnail'/></a>
           </CardText>
         </CardBody>
         <CardFooter className="text-muted">
