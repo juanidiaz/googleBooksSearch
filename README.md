@@ -14,13 +14,13 @@ The **front end** of the project is built with React components, it works with h
 
 ## SCREENSHOTS
 `Main page`
-![Main](./public/image/main.png)
+![Main](./client/public/images/main.png)
 
 `Main page - search result`
-![Main](./public/image/mainSearch.png)
+![Main](./client/public/images/mainSearch.png)
 
 `Saved books page`
-![Books saved](./public/image/bookList.png)
+![Books saved](./client/public/images/bookList.png)
 
 ## BUILDING TOOLS
 - FRONT END
