@@ -41,11 +41,11 @@ function MediaCard(props) {
                     </CardContent>
                 </CardActionArea>
             </Link>
-            <CardActions>
-                <Button onClick={() => {
-                console.log(`deleting ${props.id}`);
-                props.deleteBook(props._id);
-            }}
+            <CardActions onClick={() => {
+                    // console.log(`deleting ${props.id}`);
+                    props.deleteBook(props._id);
+                }}>
+                <Button
                     text='Delete book'
                     color='danger'
                 />

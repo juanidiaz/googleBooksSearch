@@ -38,10 +38,10 @@ function MediaCard(props) {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions onClick={() => { props.handleSaveBook(props); }}>
+            <CardActions onClick={props.isSaved ? null : () => {props.handleSaveBook(props)} }>
                 <Button
-                    text='Save book'
-                    color='success'
+                    text={props.isSaved ? 'SAVED' : 'Save book'}
+                    color={props.isSaved ? 'warning' : 'success'}
                 />
             </CardActions>
         </Card>

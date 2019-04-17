@@ -23,7 +23,7 @@ class Books extends Component {
 
   deleteBook = id => {
     API.deleteBook(id)
-      .then(res => this.loadBooks())
+      .then(() => this.loadBooks())
       .catch(err => console.log(err));
   };
 
@@ -60,30 +60,6 @@ class Books extends Component {
               )}
           </Col>
         </Row>
-        {/* <Row>
-          <Col size="md-10">
-              <h1>Saved books</h1>
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <MediaCard
-                  // <BookCard 
-                  _id = {book._id}
-                  title = {book.title}
-                  description = {book.description}
-                  author = {book.author}
-                  pageCount = {book.pageCount}
-                  link = {book.link}
-                  image = {book.image}
-                  deleteBook = {this.deleteBook}
-                  />
-                ))}
-              </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
-          </Col>
-        </Row> */}
       </Container>
     );
   }

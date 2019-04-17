@@ -19,7 +19,7 @@ export default {
   },
   // Saves a book to the database
   saveBook: (bookData) => {
-    console.log("SAVE REQUEST")
+    // console.log("SAVE REQUEST")
     return axios.post("/db/books", bookData);
   }
 };

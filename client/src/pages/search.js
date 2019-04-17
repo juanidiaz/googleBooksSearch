@@ -23,7 +23,11 @@ class Books extends Component {
       // console.log(`Searching for ${this.state.query}`)
       API.searchBooks(this.state.query)
         .then(res => {
-          this.setState({ books: res.data.items });
+          const nextBooks = res.data.items.map((book) => {
+            book.isSaved = false;
+            return book
+          })
+          this.setState({ books: nextBooks });
           // console.log(res.data.items)
         })
         .catch(err => console.log(err));
@@ -42,10 +46,29 @@ class Books extends Component {
       pageCount: info.pageCount
     }
 
-    console.log(newBook);
+    // console.log(newBook);
 
     API.saveBook(newBook)
-      .then(console.log("SAVED"))
+      .then(() => {
+        this.state.books.forEach(book => {
+          // console.log(book)
+        });
+        const nextBooks = this.state.books.map(book => book.id === newBook.googleId
+          ? { ...book, ...{ isSaved: true } }
+          : { ...book })
+
+        // const nextBooks = this.state.books.map((book) => {
+        //   return book.googleId === newBook.googleId ? { ...book, ...{ isSaved: true } } : { ...book };
+
+        //   // if (book.googleId === newBook.googleId) {
+        //   // // return Object.assign(book, {isSaved: true} );
+        //   // return {...book, ...{isSaved: true}};
+        //   // }
+        //   // return {...book};
+        //   // return Object.assign(book);
+        // })
+        this.setState({ books: nextBooks })
+      })
       .catch(err => console.log(err));
   };
 
@@ -92,12 +115,13 @@ class Books extends Component {
                         link={book.volumeInfo.infoLink}
                         image={book.volumeInfo.imageLinks.thumbnail}
                         handleSaveBook={this.handleSaveBook}
+                        isSaved={book.isSaved}
                       />
                     </div>
                   ))}
                 </div>
               </div>
-            ):(
+            ) : (
                 <small>Results will be displayed here</small>
               )}
           </Col>
