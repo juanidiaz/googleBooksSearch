@@ -3,7 +3,7 @@ import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import MediaCard from "../components/MediaCardSave"
 
-class Books extends Component {
+class Saved extends Component {
   state = {
     books: [],
     title: "",
@@ -65,4 +65,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Saved;

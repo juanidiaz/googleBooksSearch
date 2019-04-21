@@ -4,7 +4,7 @@ import { Col, Row, Container } from "../components/Grid";
 import { Input, FormBtn } from "../components/Form";
 import MediaCard from "../components/MediaCard"
 
-class Books extends Component {
+class Search extends Component {
   state = {
     books: [],
     query: ""
@@ -132,4 +132,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Search;
