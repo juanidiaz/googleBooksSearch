@@ -17,10 +17,8 @@ app.use(routes);
 
 // Connect to database... then if all good start server
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/googlebooks", {
-    useNewUrlParser: true
-  }
-).then(() => {
+  process.env.MONGODB_URI || "mongodb://localhost/googlebooks")
+  .then(() => {
   // Start the API server
   app.listen(PORT, function () {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
